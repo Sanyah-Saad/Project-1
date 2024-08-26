@@ -1,0 +1,16 @@
+is_on = True
+
+while is_on:
+    number = int(input("Check this number: "))
+    is_prime = True
+    for i in range(2, int(number ** 0.5) + 1):
+        if number % i == 0:
+            is_prime = False
+            break
+    if is_prime:
+        print("It's a prime number.")
+    else:
+        print("It's not a prime number.")
+    response = input("Do you want to check another number? (y/n): ")
+    if response.lower() != 'y':
+        is_on = False
