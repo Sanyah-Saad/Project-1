@@ -1,0 +1,21 @@
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left()
+
+def move_forward_while_possible():
+    while front_is_clear():
+        move_forward()
+
+def escape_maze():
+    while not at_goal():
+        if wall_on_right():
+            move_forward()
+        elif wall_in_front():
+            turn_left()
+        else:
+            turn_right()
+            move_forward()
+    print("You escaped the maze!")
+
+escape_maze()
