@@ -1,0 +1,39 @@
+# Initialize an empty list to store student records
+student_records = []
+
+def add_student():
+    name = input("Enter student's name: ")
+    grades = {}
+    num_grades = int(input("Enter number of grades: "))
+    for i in range(num_grades):
+        grade_name = input(f"Enter grade {i+1} name: ")
+        grade_score = float(input(f"Enter grade {i+1} score: "))
+        grades[grade_name] = grade_score
+    student_records.append({"name": name, "grades": grades})
+
+def calculate_average(grades):
+    total = sum(grades.values())
+    return total / len(grades)
+
+def print_student_records():
+    for student in student_records:
+        print(f"Student: {student['name']}")
+        print("Grades:")
+        for grade, score in student["grades"].items():
+            print(f"  {grade}: {score:.2f}")
+        average = calculate_average(student["grades"])
+        print(f"Average: {average:.2f}\n")
+
+while True:
+    print("1. Add student")
+    print("2. Print student records")
+    print("3. Quit")
+    choice = input("Choose an option: ")
+    if choice == "1":
+        add_student()
+    elif choice == "2":
+        print_student_records()
+    elif choice == "3":
+        break
+    else:
+        print("Invalid option. Try again!")
