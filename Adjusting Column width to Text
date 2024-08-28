@@ -1,0 +1,21 @@
+import openpyxl
+
+# Path to the Excel file
+file_path = r"D:\Sanyah Saad\Sanyah..new laptop\Python Boot Camp\Practice\Multiple Worksheets by Dates.xlsx"
+
+# Load the Excel file
+workbook = openpyxl.load_workbook(file_path)
+
+# Iterate over all sheets in the workbook
+for sheet in workbook.worksheets:
+    # Iterate over all columns in the sheet
+    for column in sheet.columns:
+        # Calculate the maximum width of the column
+        max_width = max(len(str(cell.value)) for cell in column)
+        # Set the column width to fit the text
+        sheet.column_dimensions[column[0].column_letter].width = max_width + 2
+
+# Save the workbook
+workbook.save(file_path)
+
+print("Task Completed")
