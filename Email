@@ -1,0 +1,23 @@
+import smtplib
+from email.message import EmailMessage
+
+# Define the email content
+SUBJECT = "Class Cancellation Notification"
+BODY = "Dear Parents,\n\nUnfortunately, we have to cancel today's class.\n\nBest regards, [Your Name]"
+
+# Define the list of parent email addresses
+PARENT_EMAILS = ["parent1@example.com", "parent2@example.com"]
+
+# Create an EmailMessage object
+msg = EmailMessage()
+msg.set_content(BODY)
+msg["Subject"] = SUBJECT
+
+# Send the email to each parent (assuming you have a Gmail account)
+for email in PARENT_EMAILS:
+    msg["To"] = email
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.send_message(msg)
+    server.quit()
+
+print("Emails sent successfully!")
