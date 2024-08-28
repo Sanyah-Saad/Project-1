@@ -1,0 +1,10 @@
+import pandas as pd
+
+# Create an Excel file with multiple worksheets
+with pd.ExcelWriter("Multiple Worksheets by Dates.xlsx") as writer:
+    for i in range(1, 13):  # 12 months
+        for j in range(2012, 2024):  # years from 2012 to 2023
+            sheet_name = f"Month {i} {j}"
+            pd.DataFrame().to_excel(writer, sheet_name=sheet_name, index=False)
+
+print("Multiple worksheets created successfully!")
