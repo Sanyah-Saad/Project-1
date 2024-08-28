@@ -1,0 +1,16 @@
+import pandas as pd
+
+# Load the Excel file
+file_path = 'D:/Sanyah Saad/Sanyah..new laptop/Python Boot Camp/Practice/Excel Worksheet.xlsx'
+df = pd.read_excel(file_path)
+
+# Calculate the mean of each column
+averages = df.mean()
+
+# Append the averages to the DataFrame
+df.loc[len(df)] = averages
+
+# Save the updated DataFrame back to the Excel file
+df.to_excel(file_path, index=False, engine='openpyxl')
+
+print("Averages calculated and appended to the Excel file successfully.")
