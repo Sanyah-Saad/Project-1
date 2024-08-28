@@ -1,0 +1,38 @@
+import pandas as pd
+
+# Use raw string to avoid issues with backslashes
+file_path = r'D:\Sanyah Saad\Sanyah..new laptop\Python Boot Camp\Practice\Excess Return Worksheet.xlsx'
+
+# Load the Excel file
+excel_data = pd.ExcelFile(file_path)
+
+# Read the 'Returns' and 'Risk Free Returns' sheets
+returns_df = pd.read_excel(excel_data, sheet_name='returns')
+risk_free_df = pd.read_excel(excel_data, sheet_name='risk free return')
+
+# Set the first row (dates) as columns headers and remove the first row
+returns_df.columns = returns_df.iloc[0]
+returns_df = returns_df[1:]
+risk_free_df.columns = risk_free_df.iloc[0]
+risk_free_df = risk_free_df[1:]
+
+# Ensure data types are float for calculation
+returns_df = returns_df.apply(pd.to_numeric, errors='coerce')
+risk_free_df = risk_free_df.apply(pd.to_numeric, errors='coerce')
+
+# Set the dates as the index
+returns_df.set_index(returns_df.columns[0], inplace=True)
+risk_free_df.set_index(risk_free_df.columns[0], inplace=True)
+
+# Calculate excess returns
+excess_returns_df = returns_df.subtract(risk_free_df)
+
+# Reset the index to have the dates back as the first column
+excess_returns_df.reset_index(inplace=True)
+
+# Write the excess returns to a new sheet in the same Excel file
+with pd.ExcelWriter(file_path, engine='openpyxl', mode='a') as writer:
+    excess_returns_df.to_excel(writer, sheet_name='Excess Returns', index=False)
+
+print("Excess returns calculated and saved to 'Excess Returns' sheet successfully.")
+
