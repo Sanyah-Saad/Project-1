@@ -1,0 +1,21 @@
+import pandas as pd
+
+# Load the Excel file
+file_path = "D:\Sanyah Saad\Sanyah..new laptop\Python Boot Camp\Practice\Excess Return Worksheet.xlsx"
+excel_data = pd.ExcelFile(file_path)
+
+
+# Read the 'Returns' and 'Risk Free Returns' sheets
+returns_df = pd.read_excel(excel_data, sheet_name='returns')
+risk_free_df = pd.read_excel(excel_data, sheet_name='risk free return')
+
+
+# Calculate excess returns by subtracting risk-free returns from returns
+excess_returns_df = returns_df.sub(risk_free_df)
+
+
+# Append the results to a new sheet called 'excess returns'
+with pd.ExcelWriter(file_path, mode='a', engine='openpyxl') as writer:
+    excess_returns_df.to_excel(writer, sheet_name='Excess Returns', index=False)
+
+print("Excess returns calculation and saving to Excel completed successfully.")
