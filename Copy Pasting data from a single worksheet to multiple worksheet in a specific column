@@ -1,0 +1,29 @@
+import openpyxl
+
+# Load the Excel file
+wb = openpyxl.load_workbook(r'D:\Sanyah Saad\Sanyah..new laptop\Python Boot Camp\Practice\Multiple Worksheets by Dates.xlsx')
+
+# Get the sheet with the monthly data
+data_sheet = wb['Sorting Criteria']
+
+# Get the list of worksheet names
+ws_names = wb.sheetnames
+
+# Iterate over the columns in the data sheet
+for col_idx, col in enumerate(data_sheet.columns, start=1):
+    # Get the column header
+    header = data_sheet.cell(row=1, column=col_idx).value
+
+    # Find the worksheet with the matching header
+    for ws_name in ws_names:
+        if ws_name == header:
+            ws = wb[ws_name]
+            break
+
+    # Copy the data from the data sheet to the current worksheet
+    for row_idx, cell in enumerate(col[1:], start=2):
+        ws.cell(row=row_idx, column=3, value=cell.value)
+
+# Save the workbook
+wb.save(r'D:\Sanyah Saad\Sanyah..new laptop\Python Boot Camp\Practice\Multiple Worksheets by Dates.xlsx')
+print("Task Completed")
